@@ -1,0 +1,75 @@
+
+
+saldo = 0
+extrato = ""
+total_saque = 0  # 3
+maximo_saque = 501
+limite_saque = []  # 1500
+
+
+while True:
+    menu = input("""\n###########################################################
+
+                            MENU:
+            
+                        1 - SACAR
+                        2 - DEPOSITAR
+                        3 - EXTRATO
+                        4 - SAIR
+            
+############################################################
+Digite uma opção: """)
+
+    if menu == "1":
+        if saldo > 0:
+            if total_saque < 3:
+                if sum(limite_saque) < 1500:
+                    print('Saldo atual R${:.2f}'.format(saldo))
+                    saque = int(input('Digite o valor a ser sacado R$:'))
+                    if saque < maximo_saque:
+                        if saque <= saldo and saque > 0:
+                            saldo -= saque
+                            extrato += "Saque R$:{:.2f}\n".format(saque)
+                            total_saque +=1
+                            limite_saque.append(saque)
+                            print('Saque realizado de R${:.2f}'.format(saque))
+                            print('Novo saldo: R${:.2f}'.format(saldo))
+                        else:
+                            print("Saldo insuficiente para o saque, seu saldo atual é R${:.2f}".format(saldo))
+                    else:
+                        print("O valor máximo por saque é R$:500,00, você está tentando sacar R${}".format(saque))
+                else:
+                    print("O valor máximo autorizado para saques diário é de R$1500,00, você ja sacou R${}".format(saque))
+            else: 
+                print("Limite de 3 saques diário atingido!")
+                print("Limite será desbloqueado em 24hs!")
+        else:
+            print('Retirada negada! Valor insuficiente na conta. SALDO = R${:.2f}'.format(saldo))
+
+    elif menu == "2":
+        deposito = int(input('Digite o valor a ser depositado R$: '))
+        saldo += deposito
+        extrato += "Deposito R$:{:.2f}\n".format(deposito)
+        print('Depósito concluído no valor de R${:.2f}'.format(deposito))
+        print('Novo saldo: R${:.2f}'.format(saldo))
+
+    elif menu == "3":
+        print("\n===== EXTRATO =====")
+        print("{}".format(extrato))
+        print(f"Saldo atual: R${saldo:.2f}")
+    elif menu == "4":
+        print("Saindo do sistema... Obrigado!")
+        break
+
+    else:
+        print('Opção inválida, tente novamente.')
+
+
+
+
+
+
+
+
+
+
